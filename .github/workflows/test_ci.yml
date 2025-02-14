@@ -1,0 +1,17 @@
+name: test on push
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Env setup
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+      - name: Install deps and test
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+          pytest
